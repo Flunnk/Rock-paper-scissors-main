@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "devDependencies": {
+  "dependencies": {
     "vite": "^7.2.4"
   }
 }
