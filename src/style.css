@@ -1,0 +1,518 @@
+:root {
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --primary-color: #646cff;
+    --secondary-color: #535bf2;
+    --accent-color: #ff4081;
+    --surface-color: #242424;
+    --font-main: 'Outfit', sans-serif;
+    --font-display: 'Lilita One', cursive;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.5;
+    font-weight: 400;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#app {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-display);
+    line-height: 1.1;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Layout & Typography */
+.view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+}
+
+.title {
+    font-size: 3rem;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    font-family: var(--font-main);
+    font-weight: 300;
+}
+
+/* Hero Images */
+.hero-images {
+    display: flex;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.hero-images img {
+    width: 80px;
+    height: 80px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.floating {
+    animation: float 3s ease-in-out infinite;
+}
+
+.delay-1 {
+    animation-delay: 0s;
+}
+
+.delay-2 {
+    animation-delay: 1s;
+}
+
+.delay-3 {
+    animation-delay: 2s;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* Menu & Config */
+.menu,
+.actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Interactive Elements */
+button {
+    border-radius: 12px;
+    border: none;
+    padding: 0.8em 1.5em;
+    font-size: 1.1em;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    color: var(--text-color);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+button:focus,
+button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    box-shadow: 0 4px 15px rgba(83, 91, 242, 0.4);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 8px 25px rgba(83, 91, 242, 0.6);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: white;
+}
+
+.config-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: left;
+    width: 100%;
+    max-width: 300px;
+}
+
+select {
+    padding: 0.8rem;
+    border-radius: 8px;
+    background: var(--surface-color);
+    color: white;
+    border: 1px solid #444;
+    font-size: 1rem;
+}
+
+/* Game Area */
+.scoreboard {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px;
+    background: var(--surface-color);
+    padding: 1rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.score-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.score-box .label {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.score-box .value {
+    font-size: 2.5rem;
+    font-family: var(--font-display);
+    color: var(--primary-color);
+}
+
+.countdown {
+    font-size: 6rem;
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    margin: 2rem 0;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.instruction {
+    font-size: 1.5rem;
+    opacity: 0.8;
+}
+
+.controls-hint {
+    display: flex;
+    gap: 4rem;
+    margin-top: 2rem;
+}
+
+.keys {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.keys span {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background: #333;
+    border-radius: 4px;
+    font-weight: bold;
+    border-bottom: 3px solid #111;
+    transition: transform 0.1s;
+}
+
+.keys span.pressed {
+    transform: translateY(2px);
+    background: var(--primary-color);
+    border-bottom-width: 0;
+    margin-top: 3px;
+}
+
+/* Result */
+.showdown {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    margin: 2rem 0;
+    perspective: 1000px;
+}
+
+.fighter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.fighter img {
+    width: 120px;
+    height: 120px;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.fighter img.winner {
+    animation: winnerGlow 2s infinite;
+}
+
+.fighter .timeout-text {
+    font-size: 4rem;
+}
+
+.vs {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--accent-color);
+    animation: popIn 0.5s 0.2s backwards;
+}
+
+/* Result Text Colors */
+h2.win {
+    color: #4caf50;
+}
+
+h2.lose {
+    color: #f44336;
+}
+
+h2.tie {
+    color: #ff9800;
+}
+
+/* Animations Library */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    70% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px) rotate(-5deg);
+    }
+
+    75% {
+        transform: translateX(5px) rotate(5deg);
+    }
+}
+
+@keyframes winnerGlow {
+    0% {
+        filter: drop-shadow(0 0 10px var(--primary-color));
+        transform: scale(1.1);
+    }
+
+    50% {
+        filter: drop-shadow(0 0 30px var(--accent-color));
+        transform: scale(1.15);
+    }
+
+    100% {
+        filter: drop-shadow(0 0 10px var(--primary-color));
+        transform: scale(1.1);
+    }
+}
+
+@keyframes scorePop {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.5);
+        color: var(--accent-color);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse-glow {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.2);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+}
+
+/* Applied Animations */
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.pop-in {
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.slide-left {
+    animation: slideInLeft 0.5s ease-out forwards;
+}
+
+.slide-right {
+    animation: slideInRight 0.5s ease-out forwards;
+}
+
+.score-box .value.updated {
+    animation: scorePop 0.4s ease-out;
+}
+
+/* Watermark */
+#watermark {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+/* Sound Toggle Button */
+.sound-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    animation: pulse-glow 2s infinite;
+    padding: 0;
+}
+
+.sound-toggle:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.sound-toggle.muted {
+    opacity: 0.7;
+    animation: none;
+}
+
+.sound-toggle .icon {
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+}
