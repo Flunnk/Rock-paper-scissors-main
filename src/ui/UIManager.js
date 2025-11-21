@@ -53,6 +53,12 @@ export class UIManager {
     if (['q', 'w', 'e'].includes(key)) {
       const map = { q: 'rock', w: 'paper', e: 'scissors' };
       this.p1Selection = map[key];
+
+      // Only show visual feedback in single-player mode to prevent cheating
+      if (this.game.mode === '1player') {
+        this.triggerKeyboardButtonAnimation('p1', key);
+      }
+
       this.updateGameStatus();
     }
 
@@ -61,7 +67,27 @@ export class UIManager {
       if (['i', 'o', 'p'].includes(key)) {
         const map = { i: 'rock', o: 'paper', p: 'scissors' };
         this.p2Selection = map[key];
+        // No visual feedback in 2-player mode to prevent cheating
         this.updateGameStatus();
+      }
+    }
+  }
+
+  triggerKeyboardButtonAnimation(player, key) {
+    // Find the button element corresponding to the pressed key
+    const keyMap = { q: 0, w: 1, e: 2, i: 0, o: 1, p: 2 };
+    const buttonIndex = keyMap[key];
+
+    if (buttonIndex !== undefined) {
+      const playerControls = document.querySelector(`.${player}-controls`);
+      if (playerControls) {
+        const buttons = playerControls.querySelectorAll('.key-btn');
+        if (buttons[buttonIndex]) {
+          // Remove selected class from all buttons in this player's group
+          buttons.forEach(btn => btn.classList.remove('selected'));
+          // Add selected class to the pressed button
+          buttons[buttonIndex].classList.add('selected');
+        }
       }
     }
   }
@@ -130,9 +156,12 @@ export class UIManager {
         <div class="config-group">
           <label>Tiempo (Countdown):</label>
           <select id="timer-select">
+            <option value="1" ${config.timer === 1 ? 'selected' : ''}>1s</option>
             <option value="3" ${config.timer === 3 ? 'selected' : ''}>3s</option>
             <option value="5" ${config.timer === 5 ? 'selected' : ''}>5s</option>
-            <option value="1" ${config.timer === 1 ? 'selected' : ''}>1s</option>
+            <option value="10" ${config.timer === 10 ? 'selected' : ''}>10s</option>
+            <option value="15" ${config.timer === 15 ? 'selected' : ''}>15s</option>
+            <option value="20" ${config.timer === 20 ? 'selected' : ''}>20s</option>
           </select>
         </div>
         <div class="actions">
@@ -177,12 +206,20 @@ export class UIManager {
         <div class="controls-hint">
           <div class="p1-controls">
             <p>Jugador 1</p>
-            <div class="keys"><span>Q</span><span>W</span><span>E</span></div>
+            <div class="keys">
+              <button class="key-btn" data-player="p1" data-choice="rock">Q</button>
+              <button class="key-btn" data-player="p1" data-choice="paper">W</button>
+              <button class="key-btn" data-player="p1" data-choice="scissors">E</button>
+            </div>
           </div>
           ${this.game.mode === '2player' ? `
           <div class="p2-controls">
             <p>Jugador 2</p>
-            <div class="keys"><span>I</span><span>O</span><span>P</span></div>
+            <div class="keys">
+              <button class="key-btn" data-player="p2" data-choice="rock">I</button>
+              <button class="key-btn" data-player="p2" data-choice="paper">O</button>
+              <button class="key-btn" data-player="p2" data-choice="scissors">P</button>
+            </div>
           </div>
           ` : ''}
         </div>
@@ -190,6 +227,38 @@ export class UIManager {
     `;
 
     this.startCountdown();
+    this.setupKeyButtonListeners();
+  }
+
+  setupKeyButtonListeners() {
+    const keyButtons = document.querySelectorAll('.key-btn');
+    keyButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const player = e.target.dataset.player;
+        const choice = e.target.dataset.choice;
+
+        if (player === 'p1') {
+          this.p1Selection = choice;
+          this.triggerButtonAnimation(e.target);
+        } else if (player === 'p2') {
+          this.p2Selection = choice;
+          this.triggerButtonAnimation(e.target);
+        }
+
+        this.updateGameStatus();
+      });
+    });
+  }
+
+  triggerButtonAnimation(button) {
+    // Remove animation from all buttons in the same group
+    const parent = button.closest('.keys');
+    parent.querySelectorAll('.key-btn').forEach(btn => {
+      btn.classList.remove('selected');
+    });
+
+    // Add animation to clicked button
+    button.classList.add('selected');
   }
 
   startCountdown() {
